@@ -1,42 +1,4 @@
 <?php
-class SourceToLocalisationWriter extends Langwiz\Writer
-{
-	public Langwiz\StringWriter $w;
-	public Langwiz\Localisation $loc;
-
-	public function __construct(Langwiz\StringWriter $w)
-	{
-		$this->w = $w;
-	}
-
-	final function kv(string $key, string $value): void
-	{
-		if ($this->loc->hasString($key))
-		{
-			$this->w->kv($key, $this->loc->getString($key));
-		}
-		else
-		{
-			$this->w->untranslatedKv($key, $value);
-		}
-	}
-
-	final function untranslatedKv(string $key, string $value): void
-	{
-		throw new LogicException("Untranslated kv in source?");
-	}
-
-	final function comment(string $msg): void
-	{
-		$this->w->comment($msg);
-	}
-
-	final function space(): void
-	{
-		$this->w->space();
-	}
-}
-
 $format = Langwiz\formatByName($argv[2] ?? "axis");
 if ($format === null)
 {
@@ -62,7 +24,7 @@ if (!array_key_exists($source_code, $langs))
 }
 
 $r = $format->getReader();
-$w = new SourceToLocalisationWriter($format->getWriter());
+$w = new Langwiz\SourceToLocalisationWriter($format->getWriter());
 
 $src_cont = file_get_contents($langs[$source_code]);
 $src = $r->loadSource($src_cont);
