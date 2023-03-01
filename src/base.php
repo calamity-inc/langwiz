@@ -16,6 +16,14 @@ abstract class LangBase
 	{
 		return $this->strings[$key];
 	}
+
+	final function export(Writer $w): void
+	{
+		foreach ($this->strings as $k => $v)
+		{
+			$w->kv($k, $v);
+		}
+	}
 }
 
 class Source extends LangBase
