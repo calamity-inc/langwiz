@@ -16,8 +16,10 @@ if (!array_key_exists($source_code, $langs))
 $r = $format->getReader();
 $w = new Langwiz\SourceToLocalisationWriter($format->getWriter());
 
+echo "Reading {$langs[$source_code]}...";
 $src_cont = file_get_contents($langs[$source_code]);
 $src = $r->loadSource($src_cont);
+echo " Got ".count($src->strings)." strings.\n";
 
 $data = [];
 
@@ -27,6 +29,8 @@ foreach ($langs as $code => $file)
 	{
 		continue;
 	}
+
+	echo "Processing $file...\n";
 
 	$w->loc = $r->loadLocalisation($src, file_get_contents($file));
 
