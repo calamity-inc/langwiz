@@ -5,18 +5,8 @@ if ($format === null)
 	die("Unknown format: {$argv[2]}\n");
 }
 
-$langs = [];
-foreach (scandir(".") as $file)
-{
-	foreach ($format->getFileEndings() as $ending)
-	{
-		if (substr($file, -strlen($ending)) == $ending)
-		{
-			$langs[substr($file, 0, -strlen($ending))] = $file;
-			continue 2;
-		}
-	}
-}
+$langs = $format->getLangsInFolder(".");
+
 $source_code = ($argv[3] ?? "en");
 if (!array_key_exists($source_code, $langs))
 {

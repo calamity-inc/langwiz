@@ -83,6 +83,23 @@ abstract class Format
 	abstract function getFileEndings(): array;
 	abstract function getWriter(): StringWriter;
 	abstract function getReader(): Reader;
+
+	final function getLangsInFolder(string $folder): array
+	{
+		$langs = [];
+		foreach (scandir($folder) as $file)
+		{
+			foreach ($this->getFileEndings() as $ending)
+			{
+				if (substr($file, -strlen($ending)) == $ending)
+				{
+					$langs[substr($file, 0, -strlen($ending))] = $file;
+					continue 2;
+				}
+			}
+		}
+		return $langs;
+	}
 }
 
 // Basic Writer
