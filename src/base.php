@@ -24,6 +24,11 @@ abstract class LangBase
 			$w->kv($k, $v);
 		}
 	}
+
+	function exportWithUntranslated(Writer $w): void
+	{
+		$this->export($w);
+	}
 }
 
 class Source extends LangBase
@@ -42,6 +47,14 @@ class Localisation extends LangBase
 	final function getString(string $key): string
 	{
 		return $this->strings[$key] ?? $this->source->strings[$key];
+	}
+
+	final function exportWithUntranslated(Writer $w): void
+	{
+		foreach (array_keys($this->source->strings) as $k)
+		{
+			$w->kv($k, $this->getString($k));
+		}
 	}
 
 	final function getTranslatedPercentage(): float
