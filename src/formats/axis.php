@@ -1,7 +1,14 @@
 <?php
 namespace Langwiz;
 
-// Axis is our own localisation format, although it's pretty similar to what Crowdin calls Flex (https://store.crowdin.com/flex)
+/* Axis is our own localisation format, it looks like this:
+
+KEY=I'm the string for KEY.
+
+! I'm a comment with information about UNTRANSLATED_KEY.
+# UNTRANSLATED_KEY=何ですか
+
+*/
 
 class AxisWriter extends StringWriter
 {
@@ -77,7 +84,7 @@ class AxisFormat extends Format
 {
 	function getFileEndings(): array
 	{
-		return [".txt"];
+		return [".axis"];
 	}
 
 	function getWriter(): StringWriter

@@ -3,7 +3,7 @@ require __DIR__."/../all.php";
 
 if (empty($argv[1]))
 {
-	die("Syntax: php {$argv[0]} update [format=axis] [source=en]\n");
+	die("Syntax: php {$argv[0]} update [format=".join("|", array_keys($format_registry))."] [source=en]\n");
 }
 
 if ($argv[1] == "update")
