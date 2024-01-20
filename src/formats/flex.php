@@ -14,11 +14,6 @@ class FlexWriter extends StringWriter
 	{
 		$this->out .= "#$msg\n";
 	}
-
-	final function space(): void
-	{
-		$this->out .= "\n";
-	}
 }
 
 class FlexReader extends Reader
